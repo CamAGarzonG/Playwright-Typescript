@@ -50,3 +50,158 @@ WebStorm
 - Muestra esquema del pom
 - No necesita plugins para correr TP
 - Facil de usar pliugin de GIT
+
+
+
+
+---
+
+# Playwright + TypeScript
+
+## 1. Requisitos previos
+
+- **NVM (Node Version Manager):**  
+  [Guía de instalación](https://github.com/nvm-sh/nvm)
+- **Node.js y npm:**  
+  [Descargar e instalar Node.js y npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- **Bash:**  
+  (Recomendado para usuarios de Windows: [Git Bash](https://gitforwindows.org/))
+- **TypeScript y ts-node:**  
+  ```bash
+  npm install -g typescript ts-node
+  ```
+
+Para más información, consulta la [documentación oficial de Playwright](https://playwright.dev/docs/intro).
+
+---
+
+## 2. Instalación de Playwright
+
+Ejecuta el siguiente comando en la raíz de tu proyecto:
+
+```bash
+npm init playwright@latest
+```
+
+Esto instalará Playwright y generará la estructura básica del proyecto.
+
+---
+
+## 3. Comandos útiles
+
+Dentro del directorio del proyecto, puedes ejecutar:
+
+- `npx playwright test`  
+  Ejecuta todos los tests end-to-end.
+
+- `npx playwright test --ui`  
+  Inicia el modo interactivo de UI.
+
+- `npx playwright test --project=chromium`  
+  Ejecuta los tests solo en Chrome de escritorio.
+
+- `npx playwright test example`  
+  Ejecuta los tests de un archivo específico.
+
+- `npx playwright test --debug`  
+  Ejecuta los tests en modo debug.
+
+- `npx playwright codegen`  
+  Genera tests automáticamente con Codegen.
+
+- `npx playwright show-report`  
+  Muestra el reporte de los tests ejecutados.
+
+**Sugerencia:**  
+Comienza ejecutando:
+
+```bash
+npx playwright test
+```
+
+---
+
+## 4. Ejemplo básico de test
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('homepage has title and get started link', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+  await expect(page).toHaveTitle(/Playwright/);
+  await expect(page.locator('text=Get Started')).toBeVisible();
+});
+```
+
+Guarda este archivo en la carpeta `tests` o `e2e` y ejecútalo con `npx playwright test`.
+
+---
+
+## 5. Extensiones recomendadas para Visual Studio Code
+
+- **Playwright Snippets**  
+  Mejora la escritura de código Playwright.
+- **Playwright Test Snippets**  
+  Recomendado en algunos cursos.
+- **Playwright Test for VSCode**  
+  Permite grabar, encontrar locators y visualizar el navegador fácilmente.
+
+---
+
+## 6. Consejos para IDEs
+
+### Visual Studio Code (VSC)
+- Usa los plugins mencionados para seleccionar navegador, ver el trace viewer y facilitar la grabación de tests.
+
+### WebStorm
+- Muestra el esquema del proyecto.
+- No requiere plugins adicionales para ejecutar tests.
+- Integración sencilla con Git.
+
+---
+
+## 7. Troubleshooting (Solución de problemas)
+
+- **Error: "Cannot find module 'playwright'"**  
+  Asegúrate de haber ejecutado `npm install` y de estar en la carpeta correcta.
+- **Problemas con TypeScript:**  
+  Verifica que tienes un archivo `tsconfig.json` y que TypeScript está instalado globalmente o como dependencia de desarrollo.
+- **El navegador no abre:**  
+  Ejecuta `npx playwright install` para instalar los navegadores requeridos.
+- **Tests no se ejecutan:**  
+  Verifica que tus archivos de test tengan la extensión `.spec.ts` o `.test.ts`.
+
+---
+
+## 8. Integración Continua (CI/CD) básica con GitHub Actions
+
+Crea un archivo en tu proyecto en la ruta `.github/workflows/playwright.yml` con el siguiente contenido:
+
+```yaml
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npx playwright install --with-deps
+      - run: npx playwright test
+      - run: npx playwright show-report
+```
+
+Esto ejecutará tus tests automáticamente en cada push o pull request a la rama `main`.
+
+---
+
+¿Te gustaría agregar ejemplos de configuración avanzada, manejo de variables de entorno o integración con otros servicios? Si necesitas otra sección, ¡dímelo!
