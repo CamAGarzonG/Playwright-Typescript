@@ -35,7 +35,18 @@ We suggest that you begin by typing:
     npx playwright test
 3. Correr "npx playwright test" y luego "npx playwright show-report"  
 
-4. Instalar "Playwright Snippets" (Se ve mejor) o "Playwright Test Snippets" (Segunt el del curso)
+4. Instalar "Playwright Snippets" (Se ve mejor) o "Playwright Test Snippets" (Segunt el del curso) [Para VSC]
 
 5. Instalar "Playwright Test for VSCode" (Levanta casos de prueba facil) ***
     5.1. Hace recordings, encuentra locators, muestra browser
+
+***
+VSC
+
+- Plugin para seleccionar browser, mostrarlo o seleccionar trace viewer (*Playwright Test Snippets*)
+
+WebStorm
+
+- Muestra esquema del pom
+- No necesita plugins para correr TP
+- Facil de usar pliugin de GIT
