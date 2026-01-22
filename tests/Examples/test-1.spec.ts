@@ -10,7 +10,7 @@ import { test, Browser, Page, expect } from '@playwright/test';
 
     const secciones = [
       { nombre: 'Cursos', url: '/cursos', tituloEsperado: 'Cursos' },
-      //{ nombre: 'Udemy', url: '/udemy', tituloEsperado: 'Udemy' },
+      { nombre: 'Udemy', url: '/udemy', tituloEsperado: 'Udemy' },
       //{ nombre: 'Recursos', url: '/recursos', tituloEsperado: 'Recursos' },
       //{ nombre: 'Blog', url: '/login', tituloEsperado: 'Acceder a Free Range Testers' }
       // Agrega más secciones si es necesario
