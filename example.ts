@@ -17,6 +17,11 @@ let full: string = nombre + ' ' + 'lopez';
 
 console.log(`Nombre: ${nombre}, Edad: ${edad}, Activo: ${esActive}`);
 
+// LET
+
+//  as const  ---> el objeto o arreglo como un valor constante y los tipos serán inferidos como literales (constante inmutable)
+const colores = ["rojo", "verde", "azul"] as const;
+
 // ------------------------------------------------------
 // Funciones y Funciones Flecha
 // ------------------------------------------------------
@@ -48,6 +53,24 @@ console.log(`Triple de 5: ${tripleNum(5)}`);
 const numeros: number[] = [1, 2, 3, 4];
 const dobles = numeros.map(n => n * 2);
 console.log(`Dobles: ${dobles}`);
+
+
+// ------------------------------------------------------
+// Funcion Genéricos
+// ------------------------------------------------------
+console.log("------------------------------------------------------");
+console.log("Genéricos");
+console.log("------------------------------------------------------");
+
+// Función genérica  
+// <T>: Parámetro tipo genérico //  (valor: T): Parámetro llamado valor. TipoParámetro es T //: T: tipo de retorno de la función
+function devolverLoMismo<T>(valor: T): T {return valor;}
+function invertirArray<T>(arr: T[]): T[] {return arr.reverse();}
+
+const numero = devolverLoMismo(10);
+console.log(`Invertir [1,2,3]: ${invertirArray([1,2,3])}`);
+console.log(`Invertir ['a','b','c']: ${invertirArray(['a','b','c'])}`);
+
 
 // ------------------------------------------------------
 // Condicionales y Ciclos
@@ -167,20 +190,6 @@ let info: [string,string,number]=["zorro", "llave", 6]// Tupla;
 
 console.log(frutas.length + " " + num[3]);
 
-// ------------------------------------------------------
-// Genéricos
-// ------------------------------------------------------
-console.log("------------------------------------------------------");
-console.log("Genéricos");
-console.log("------------------------------------------------------");
-
-// Función genérica
-function invertirArray<T>(arr: T[]): T[] {
-    return arr.reverse();
-}
-
-console.log(`Invertir [1,2,3]: ${invertirArray([1,2,3])}`);
-console.log(`Invertir ['a','b','c']: ${invertirArray(['a','b','c'])}`);
 
 // ------------------------------------------------------
 // Manejo de errores

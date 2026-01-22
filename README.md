@@ -52,7 +52,11 @@ WebStorm
 - Facil de usar pliugin de GIT
 
 
+vsc
+.-Playwright Test for VSCode
 
+
+npm install @playwright/test @cucumber/cucumber ts-node typescript
 
 ---
 
