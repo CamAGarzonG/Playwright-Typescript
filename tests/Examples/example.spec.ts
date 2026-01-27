@@ -14,3 +14,12 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
+
+test('successful login', async ({ page }) => {
+  await page.goto('https://example.com/login');
+  await page.locator('#username').fill('testuser');
+  await page.locator('#password').fill('password123');
+  await page.getByRole('button', { name: 'Sign In' }).click();
+  await expect(page.locator('.welcome-message')).toHaveText('Welcome, testuser');
+});

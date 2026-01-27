@@ -35,34 +35,44 @@ test('iframe validation', async ({ page }) => {
 
 
 
-test('iframe', async ({ page }) => {
-  const context = await browser.newContext();
+//test('iframe', async ({ page }) => {
+//  const context = await browser.newContext();
 
-  await page.goto('https://www.automationtesting.co.uk/popups.html');
+//  await page.goto('https://www.automationtesting.co.uk/popups.html');
 
   
-  await page.click('button[onclick="alertTrigger()"]');
-  await page.waitForTimeout(1000); // Esperar 1 segundo (opcional)
+//  await page.click('button[onclick="alertTrigger()"]');
+//  await page.waitForTimeout(1000); // Esperar 1 segundo (opcional)
 
-  page.on('dialog', async dialog => {
-    console.log(`Dialog message: ${dialog.message()}`); // Imprimir el mensaje del confirm
-    await dialog.accept(); // Aceptar el confirm
-  });
+//  page.on('dialog', async dialog => {
+//    console.log(`Dialog message: ${dialog.message()}`); // Imprimir el mensaje del confirm
+//    await dialog.accept(); // Aceptar el confirm
+//  });
 
   // Hacer clic en el botón que abre el pop-up (en una nueva pestaña)
-    const [newPage] = await Promise.all([
-        context.waitForEvent('page'), // Esperar a que se abra una nueva pestaña
-        page.click('#boton-abrir-popup') // Hacer clic en el botón
-    ]);
+//    const [newPage] = await Promise.all([
+//        context.waitForEvent('page'), // Esperar a que se abra una nueva pestaña
+//        page.click('#boton-abrir-popup') // Hacer clic en el botón
+//    ]);
 
   
-    await newPage.close();// Cerrar la nueva pestaña
-    const originalPage = context.pages()[0]; // Obtener la pestaña original  
-});
+//    await newPage.close();// Cerrar la nueva pestaña
+//    const originalPage = context.pages()[0]; // Obtener la pestaña original  
+//});
 
 
 
 test('Validate API response elements', async ({ page }) => {
+
+  //const api = await request.newContext();
+  //const res = await api.get(‘https://api.example.com/users’);
+  //expect(res.status()).toBe(200);
+  //extraHTTPHeaders: {
+  // Authorization: `Bearer ${token}`,
+  // ‘Content-Type’: ‘application/json’,
+  //},
+
+  
   // Intercept the GET request to the API
   await page.route('https://jsonplaceholder.typicode.com/posts/1', async (route) => {
     // Continue with the original request
@@ -85,3 +95,29 @@ suscipit recusandae consequuntur expedita et cum
 reprehenderit molestiae ut ut quas totam
 nostrum rerum est autem sunt rem eveniet architecto`); // Validate the body content
 });
+
+
+
+
+const users = [
+  { username: 'standard_user', password: 'secret_sauce', expectedTitle: 'Products' },
+  { username: 'locked_out_user', password: 'secret_sauce', expectedTitle: 'Epic sadface: Sorry, this user has been locked out.' },
+  { username: 'problem_user', password: 'secret_sauce', expectedTitle: 'Products' },
+  { username: 'invalid_user', password: 'wrong_password', expectedTitle: 'Epic sadface: Username and password do not match any user in this service' }, // Escenario negativo
+];
+
+for (const user of users) {
+  test(`Login como ${user.username}`, async ({ page }) => {
+    await page.goto('https://www.saucedemo.com/');
+    await page.fill('#user-name', user.username);
+    await page.fill('#password', user.password);
+    await page.click('#login-button');
+
+    // Verificar el resultado esperado
+    if (user.username === 'standard_user' || user.username === 'problem_user') {
+      await expect(page.locator('.title')).toHaveText(user.expectedTitle);
+    } else {
+      await expect(page.locator('.error-message-container')).toHaveText(user.expectedTitle);
+    }
+  });
+}
